@@ -11,13 +11,14 @@ function initBody() {
 		<button class="button" onclick="setLED(this)">ON</button>
 	</div>
 	<br>
-	<button class="button" onclick="refreshStatus()">Refresh</button>`;
+	<button class="button" onclick="refreshStatus(this)">Refresh</button>`;
 }
 initBody();
 
 function setLED(btn) {
 	const ledNumber = parseInt(btn.closest('[data-led]').dataset.led);
 	const isOn = btn.classList.contains('status-on');
+	btn.setAttribute('disabled', '');
 	const url = `/led/${ledNumber}/${isOn ? 'off' : 'on'}`;
 	fetch(url, {
 		method: 'POST'
@@ -25,20 +26,23 @@ function setLED(btn) {
 		.then(response => {
 			if (response.ok) {
 				const status = {};
-				status[`led${ledNumber}`] = isOn;
+				status[`led${ledNumber}`] = !isOn;
 				updateStatus(status);
+				btn.removeAttribute('disabled');
 			} else {
 				alert('Problem Occurred!');
 			}
 		});
 }
-function refreshStatus() {
+function refreshStatus(btn) {
+	btn.setAttribute('disabled', '');
 	fetch('/led', {
 		method: 'GET'
 	})
 		.then(response => response.json())
 		.then(function (json) {
 			updateStatus(json);
+			btn.removeAttribute('disabled');
 		});
 }
 
@@ -46,7 +50,8 @@ function updateStatus(json) {
 	if (json) {
 		[1, 2].forEach(num => {
 			if (json.hasOwnProperty(`led${num}`)) {
-				document.querySelector(`[data-led="${num}"] span`).textContent = json[`led${num}`] ? 'OFF' : 'ON';
+				document.querySelector(`[data-led="${num}"] span`).textContent = json[`led${num}`] ? 'ON' : 'OFF';
+				document.querySelector(`[data-led="${num}"] button`).textContent = json[`led${num}`] ? 'OFF' : 'ON';
 				if (json[`led${num}`]) {
 					document.querySelector(`[data-led="${num}"] button`).classList.add('status-on');
 				} else {
