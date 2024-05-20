@@ -15,7 +15,8 @@ function initBody() {
 }
 initBody();
 
-function setLED(ledNumber, btn) {
+function setLED(btn) {
+	const ledNumber = parseInt(btn.closest('[data-led]').dataset.led);
 	const isOn = btn.classList.contains('status-on');
 	const url = `/led/${ledNumber}/${isOn ? 'off' : 'on'}`;
 	fetch(url, {
