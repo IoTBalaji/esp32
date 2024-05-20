@@ -129,7 +129,7 @@ String SendHTML(bool isNotFound)
 		htmlContent += "<meta charset='utf-8'>";
 		htmlContent += "<meta name='viewport' content='width=device-width, initial-scale=1'>";
 		htmlContent += "<title>Balaji ESP32</title>";
-		htmlContent += "<link href='https://cdn.jsdelivr.net/gh/IoTBalaji/esp32@v0/index.css' rel='stylesheet' crossorigin='anonymous'>";
+		htmlContent += "<link href='https://cdn.jsdelivr.net/gh/IoTBalaji/esp32@latest/index.css' rel='stylesheet' crossorigin='anonymous'>";
 	htmlContent += "</head>";
 	htmlContent += "<body>";
 
@@ -142,7 +142,7 @@ String SendHTML(bool isNotFound)
 		htmlContent += "<div id=\"container\">";
 			htmlContent += "<h1>Poor Internet Connection!</h1>";
 		htmlContent += "</div>";
-		htmlContent += "<script src='https://cdn.jsdelivr.net/gh/IoTBalaji/esp32@v0/index.js' crossorigin='anonymous'></script>";
+		htmlContent += "<script src='https://cdn.jsdelivr.net/gh/IoTBalaji/esp32@latest/index.js' crossorigin='anonymous'></script>";
 	}
 	htmlContent += "</div>";
 	htmlContent += "</html>";
